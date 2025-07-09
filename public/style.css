@@ -4,6 +4,8 @@ body {
   font-size: 40px;
   padding: 20px;
   line-height: 1.5;
+  background-color: #f9f9f9;
+  color: #333;
 }
 
 /* Layout helpers */
@@ -12,12 +14,16 @@ body {
 .dashboard-container {
   max-width: 800px;
   margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
 
 /* === Mobile styles === */
 @media only screen and (max-width: 600px) {
   body {
-    font-size: 30px;           /* Slightly smaller than desktop but still large and readable */
+    font-size: 30px;           /* Slightly smaller but very readable */
     padding: 15px;
     line-height: 1.6;
   }
@@ -25,10 +31,11 @@ body {
   .login-box,
   .reader-container,
   .dashboard-container {
-    width: 90% !important;     /* Use most of screen width */
-    padding: 15px !important;
+    width: 95% !important;     /* Use almost full width */
+    padding: 20px !important;
     box-sizing: border-box;
     margin: 0 auto;
+    border-radius: 10px;
   }
 
   .login-box h2,
@@ -40,20 +47,22 @@ body {
   .login-box button,
   .reader-container button {
     font-size: 28px;
-    padding: 14px;
+    padding: 16px;
     margin: 12px 0;
-    width: 100%;               /* Full width inputs and buttons for easier tapping */
+    width: 100%;               /* Full width for easy tap */
     box-sizing: border-box;
+    border-radius: 8px;
   }
 
   a, button {
     font-size: 30px;
   }
 
-  /* Make nav buttons stack vertically on mobile */
+  /* Nav buttons stack vertically and fill width */
   .nav-buttons {
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
+    margin-top: 30px;
   }
   .nav-buttons button {
     width: 100%;
