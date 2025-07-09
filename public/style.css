@@ -1,3 +1,54 @@
-<body style="font-size: 40px;">
-  ...
-</body>
+/* === Default styles for desktop === */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 40px;
+  padding: 20px;
+  line-height: 1.5;
+}
+
+/* Optional: layout styling for containers */
+.login-box,
+.reader-container,
+.dashboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* === Mobile styles (for phones and small tablets) === */
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 60px;
+    padding: 10px;
+    line-height: 1.6;
+  }
+
+  .login-box,
+  .reader-container,
+  .dashboard-container {
+    width: 100% !important;
+    padding: 20px !important;
+    box-sizing: border-box;
+  }
+
+  .login-box h2,
+  .dashboard-container h2 {
+    font-size: 48px;
+  }
+
+  .login-box input,
+  .login-box button,
+  .reader-container button {
+    font-size: 32px;
+    padding: 16px;
+    margin: 12px 0;
+  }
+
+  .reader-container {
+    font-size: 60px;
+  }
+
+  a, button {
+    font-size: 40px;
+  }
+}
+
