@@ -2,6 +2,20 @@
 <html>
 <head>
   <title><%= book %> - <%= chapter %></title>
+  <style>
+    body {
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      background-color: #f9f9f9;
+      font-size: 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
   <a href="/dashboard">Back to Library</a> |
@@ -15,5 +29,17 @@
   <% } else { %>
     <p>End of Book</p>
   <% } %>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const color = localStorage.getItem('textColor');
+      const bg = localStorage.getItem('bgColor');
+      const size = localStorage.getItem('textSize');
+
+      if (color) document.body.style.color = color;
+      if (bg) document.body.style.backgroundColor = bg;
+      if (size) document.body.style.fontSize = size;
+    });
+  </script>
 </body>
 </html>

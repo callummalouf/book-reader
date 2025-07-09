@@ -1,9 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head><title>Dashboard</title></head>
+<head>
+  <title>Dashboard</title>
+  <style>
+    #settingsModal {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      max-width: 300px;
+    }
+    #settingsModal.show {
+      display: block;
+    }
+  </style>
+</head>
 <body>
   <h2>Your Library</h2>
   <a href="/logout">Logout</a>
+  <button id="openSettings">Settings ⚙️</button>
+
   <ul>
     <% books.forEach(book => { %>
       <li>
@@ -13,5 +35,44 @@
       </li>
     <% }) %>
   </ul>
+
+  <!-- Settings Panel -->
+  <div id="settingsModal">
+    <h3>Customize Theme</h3>
+    <label>Text Color: <input type="color" id="textColor" value="#333333" /></label><br><br>
+    <label>Background Color: <input type="color" id="bgColor" value="#f9f9f9" /></label><br><br>
+    <label>Text Size:
+      <select id="textSize">
+        <option value="14px">Small</option>
+        <option value="16px" selected>Medium</option>
+        <option value="20px">Large</option>
+        <option value="24px">Extra Large</option>
+      </select>
+    </label><br><br>
+    <button id="saveSettings">Save</button>
+    <button id="closeSettings">Close</button>
+  </div>
+
+  <script>
+    const modal = document.getElementById('settingsModal');
+    document.getElementById('openSettings').onclick = () => {
+      modal.classList.add('show');
+      document.getElementById('textColor').value = localStorage.getItem('textColor') || '#333333';
+      document.getElementById('bgColor').value = localStorage.getItem('bgColor') || '#f9f9f9';
+      document.getElementById('textSize').value = localStorage.getItem('textSize') || '16px';
+    };
+
+    document.getElementById('closeSettings').onclick = () => {
+      modal.classList.remove('show');
+    };
+
+    document.getElementById('saveSettings').onclick = () => {
+      localStorage.setItem('textColor', document.getElementById('textColor').value);
+      localStorage.setItem('bgColor', document.getElementById('bgColor').value);
+      localStorage.setItem('textSize', document.getElementById('textSize').value);
+      alert('Settings saved! Refresh the reading page to see changes.');
+      modal.classList.remove('show');
+    };
+  </script>
 </body>
 </html>
