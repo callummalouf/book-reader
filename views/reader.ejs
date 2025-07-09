@@ -47,7 +47,7 @@
       border: 1px solid #ccc;
       box-shadow: 0 0 12px rgba(0,0,0,0.2);
       z-index: 1000;
-      max-width: 300px;
+      max-width: 320px;
       border-radius: 8px;
     }
 
@@ -102,6 +102,10 @@
         <option value="20px">Large</option>
         <option value="24px">Extra Large</option>
         <option value="34px">Extra Extra Extra Large</option>
+        <option value="40px">3.5xL</option>
+        <option value="45px">4xL</option>
+        <option value="50px">Are You Blind!</option>
+        <option value="55px">(-_-)</option>
       </select>
     </label><br><br>
     <button id="saveSettings">Save</button>
@@ -128,7 +132,6 @@
       modal.classList.remove('show');
     };
 
-    // Apply saved settings on load
     document.addEventListener('DOMContentLoaded', () => {
       const color = localStorage.getItem('textColor');
       const bg = localStorage.getItem('bgColor');
