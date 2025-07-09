@@ -1,11 +1,3 @@
 body {
-  font-family: sans-serif;
-  padding: 20px;
-  font-size: 18px; /* desktop size */
-}
-
-@media (max-width: 768px) {
-  body {
-    font-size: 90px; /* bigger on phones/tablets */
-  }
+  font-size: 40px;
 }
