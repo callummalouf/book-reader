@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -52,7 +54,8 @@
       margin-bottom: 20px;
     }
 
-    .top-bar a, .top-bar button {
+    .top-bar a,
+    .top-bar button {
       padding: 10px 16px;
       font-size: 16px;
       border: none;
@@ -63,7 +66,8 @@
       cursor: pointer;
     }
 
-    .top-bar a:hover, .top-bar button:hover {
+    .top-bar a:hover,
+    .top-bar button:hover {
       background-color: #005fa3;
     }
 
@@ -76,7 +80,7 @@
       background: white;
       padding: 20px;
       border: 1px solid #ccc;
-      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
       z-index: 1000;
       max-width: 300px;
       border-radius: 8px;
@@ -84,6 +88,33 @@
 
     #settingsModal.show {
       display: block;
+    }
+
+    /* Mobile styles */
+    @media only screen and (max-width: 600px) {
+      body {
+        font-size: 60px;
+        padding: 20px;
+      }
+
+      .container {
+        padding: 20px;
+        width: 100%;
+      }
+
+      h2 {
+        font-size: 48px;
+      }
+
+      .top-bar a,
+      .top-bar button {
+        font-size: 40px;
+        padding: 20px;
+      }
+
+      li a {
+        font-size: 40px;
+      }
     }
   </style>
 </head>

@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       margin: 0;
@@ -11,7 +12,7 @@
       justify-content: center;
       align-items: center;
       font-family: 'Segoe UI', sans-serif;
-      font-size: 40px;  /* <-- Added this line */
+      font-size: 40px; /* Default font size for desktop */
     }
 
     .login-box {
@@ -51,6 +52,23 @@
 
     .login-box button:hover {
       background-color: #005fa3;
+    }
+
+    /* Mobile font adjustment */
+    @media only screen and (max-width: 600px) {
+      body {
+        font-size: 60px;
+      }
+
+      .login-box h2 {
+        font-size: 40px;
+      }
+
+      .login-box input,
+      .login-box button {
+        font-size: 32px;
+        padding: 20px;
+      }
     }
   </style>
 </head>
