@@ -1,70 +1,142 @@
-/* === Default styles for desktop === */
-body {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 40px;
-  padding: 20px;
-  line-height: 1.5;
-  background-color: #f9f9f9;
-  color: #333;
+/* === Base Styles (Mobile First) === */
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; /* Makes 1rem = 10px */
+}
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
-/* Layout helpers */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 3rem; /* 30px base for mobile */
+  padding: 1.5rem;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* Layout containers */
 .login-box,
 .reader-container,
 .dashboard-container {
-  max-width: 800px;
+  width: 95%;
+  max-width: 80rem;
   margin: 0 auto;
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 0 1.2rem rgba(0, 0, 0, 0.1);
 }
 
-/* === Mobile styles === */
-@media only screen and (max-width: 600px) {
+/* Headings */
+h2, h3 {
+  font-size: 4.4rem; /* 44px */
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Inputs and Buttons */
+input,
+button,
+select {
+  width: 100%;
+  font-size: 3.2rem;
+  padding: 1.6rem;
+  margin: 1.2rem 0;
+  border: 1px solid #ccc;
+  border-radius: 0.8rem;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+  background-color: #007acc;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #005fa3;
+}
+
+/* Links */
+a {
+  font-size: 3.2rem;
+  color: #007acc;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Nav buttons layout */
+.nav-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 3rem;
+}
+.nav-buttons button {
+  width: 100%;
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: stretch;
+  margin-bottom: 2rem;
+}
+.top-bar a,
+.top-bar button {
+  font-size: 3rem;
+  padding: 1.6rem;
+  border-radius: 0.8rem;
+  background-color: #007acc;
+  color: white;
+  text-align: center;
+}
+
+/* === Larger Screens === */
+@media only screen and (min-width: 768px) {
   body {
-    font-size: 30px;           /* Slightly smaller but very readable */
-    padding: 15px;
-    line-height: 1.6;
+    font-size: 4rem; /* 40px for desktop */
+    padding: 2rem;
   }
 
-  .login-box,
-  .reader-container,
-  .dashboard-container {
-    width: 95% !important;     /* Use almost full width */
-    padding: 20px !important;
-    box-sizing: border-box;
-    margin: 0 auto;
-    border-radius: 10px;
+  .top-bar {
+    flex-direction: row;
+    justify-content: space-between;
   }
 
-  .login-box h2,
-  .dashboard-container h2 {
-    font-size: 36px;
+  .top-bar a,
+  .top-bar button {
+    font-size: 1.8rem;
+    padding: 1rem 1.6rem;
+    width: auto;
   }
 
-  .login-box input,
-  .login-box button,
-  .reader-container button {
-    font-size: 28px;
-    padding: 16px;
-    margin: 12px 0;
-    width: 100%;               /* Full width for easy tap */
-    box-sizing: border-box;
-    border-radius: 8px;
+  h2, h3 {
+    font-size: 2.6rem;
   }
 
-  a, button {
-    font-size: 30px;
+  input,
+  button,
+  select {
+    font-size: 2rem;
+    padding: 1.2rem;
   }
 
-  /* Nav buttons stack vertically and fill width */
   .nav-buttons {
-    flex-direction: column;
-    gap: 14px;
-    margin-top: 30px;
+    flex-direction: row;
+    justify-content: space-between;
   }
+
   .nav-buttons button {
-    width: 100%;
+    width: auto;
+    min-width: 14rem;
   }
 }
