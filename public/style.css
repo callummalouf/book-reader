@@ -6,7 +6,7 @@ body {
   line-height: 1.5;
 }
 
-/* Optional: layout styling for containers */
+/* Layout helpers */
 .login-box,
 .reader-container,
 .dashboard-container {
@@ -14,41 +14,48 @@ body {
   margin: 0 auto;
 }
 
-/* === Mobile styles (for phones and small tablets) === */
+/* === Mobile styles === */
 @media only screen and (max-width: 600px) {
   body {
-    font-size: 60px;
-    padding: 10px;
+    font-size: 30px;           /* Slightly smaller than desktop but still large and readable */
+    padding: 15px;
     line-height: 1.6;
   }
 
   .login-box,
   .reader-container,
   .dashboard-container {
-    width: 100% !important;
-    padding: 20px !important;
+    width: 90% !important;     /* Use most of screen width */
+    padding: 15px !important;
     box-sizing: border-box;
+    margin: 0 auto;
   }
 
   .login-box h2,
   .dashboard-container h2 {
-    font-size: 48px;
+    font-size: 36px;
   }
 
   .login-box input,
   .login-box button,
   .reader-container button {
-    font-size: 32px;
-    padding: 16px;
+    font-size: 28px;
+    padding: 14px;
     margin: 12px 0;
-  }
-
-  .reader-container {
-    font-size: 60px;
+    width: 100%;               /* Full width inputs and buttons for easier tapping */
+    box-sizing: border-box;
   }
 
   a, button {
-    font-size: 40px;
+    font-size: 30px;
+  }
+
+  /* Make nav buttons stack vertically on mobile */
+  .nav-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .nav-buttons button {
+    width: 100%;
   }
 }
-
