@@ -3,6 +3,70 @@
 <head>
   <title>Dashboard</title>
   <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 40px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 26px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 15px 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: #007acc;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .top-bar a, .top-bar button {
+      padding: 10px 16px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #007acc;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .top-bar a:hover, .top-bar button:hover {
+      background-color: #005fa3;
+    }
+
     #settingsModal {
       display: none;
       position: fixed;
@@ -15,26 +79,32 @@
       box-shadow: 0 0 12px rgba(0,0,0,0.2);
       z-index: 1000;
       max-width: 300px;
+      border-radius: 8px;
     }
+
     #settingsModal.show {
       display: block;
     }
   </style>
 </head>
 <body>
-  <h2>Your Library</h2>
-  <a href="/logout">Logout</a>
-  <button id="openSettings">Settings ⚙️</button>
+  <div class="container">
+    <div class="top-bar">
+      <a href="/logout">Logout</a>
+      <button id="openSettings">Settings ⚙️</button>
+    </div>
 
-  <ul>
-    <% books.forEach(book => { %>
-      <li>
-        <a href="/read/<%= book %>/<%= progress[book] || 'chapter1' %>">
-          <%= book %>
-        </a>
-      </li>
-    <% }) %>
-  </ul>
+    <h2>Your Library</h2>
+    <ul>
+      <% books.forEach(book => { %>
+        <li>
+          <a href="/read/<%= book %>/<%= progress[book] || 'chapter1' %>">
+            <%= book %>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
 
   <!-- Settings Panel -->
   <div id="settingsModal">
