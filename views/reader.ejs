@@ -15,20 +15,50 @@
       box-shadow: 0 0 12px rgba(0,0,0,0.1);
       border-radius: 8px;
     }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+    .nav-buttons form {
+      display: inline;
+    }
+    .nav-buttons button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .nav-buttons button:hover {
+      background-color: #005fa3;
+    }
   </style>
 </head>
 <body>
   <a href="/dashboard">Back to Library</a> |
   <a href="/logout">Logout</a>
   <hr>
+
   <div><%- content %></div>
-  <% if (nextChapter) { %>
-    <form method="GET" action="/read/<%= book %>/<%= nextChapter %>">
-      <button>Next Chapter</button>
-    </form>
-  <% } else { %>
-    <p>End of Book</p>
-  <% } %>
+
+  <div class="nav-buttons">
+    <% if (prevChapter) { %>
+      <form method="GET" action="/read/<%= book %>/<%= prevChapter %>">
+        <button>&larr; Previous Chapter</button>
+      </form>
+    <% } else { %>
+      <div></div>
+    <% } %>
+
+    <% if (nextChapter) { %>
+      <form method="GET" action="/read/<%= book %>/<%= nextChapter %>">
+        <button>Next Chapter &rarr;</button>
+      </form>
+    <% } %>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {

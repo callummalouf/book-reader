@@ -52,6 +52,39 @@ app.get('/read/:book/:chapter', (req, res) => {
     if (!req.session.loggedIn) return res.redirect('/');
     const { book, chapter } = req.params;
     const chapterPath = path.join(__dirname, 'books', book, `${chapter}.html`);
+
+    if (!fs.existsSync(chapterPath)) return res.send('Chapter not found');
+
+    const chapters = fs.readdirSync(path.join(__dirname, 'books', book))
+        .filter(f => f.endsWith('.html'))
+        .sort();
+
+    const currentIndex = chapters.indexOf(`${chapter}.html`);
+    const nextChapter = chapters[currentIndex + 1]
+        ? chapters[currentIndex + 1].replace('.html', '')
+        : null;
+
+    const prevChapter = chapters[currentIndex - 1]
+        ? chapters[currentIndex - 1].replace('.html', '')
+        : null;
+
+    // Save progress
+    const progress = getProgress();
+    progress[USERNAME] = progress[USERNAME] || {};
+    progress[USERNAME][book] = chapter;
+    saveProgress(progress);
+
+    const chapterContent = fs.readFileSync(chapterPath, 'utf8');
+    res.render('reader', {
+        book,
+        chapter,
+        content: chapterContent,
+        nextChapter,
+        prevChapter
+    });
+});    if (!req.session.loggedIn) return res.redirect('/');
+    const { book, chapter } = req.params;
+    const chapterPath = path.join(__dirname, 'books', book, `${chapter}.html`);
     if (!fs.existsSync(chapterPath)) return res.send('Chapter not found');
 
     const chapters = fs.readdirSync(path.join(__dirname, 'books', book))
