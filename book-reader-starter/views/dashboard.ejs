@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard</title></head>
+<body>
+  <h2>Your Library</h2>
+  <a href="/logout">Logout</a>
+  <ul>
+    <% books.forEach(book => { %>
+      <li>
+        <a href="/read/<%= book %>/<%= progress[book] || 'chapter1' %>">
+          <%= book %>
+        </a>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

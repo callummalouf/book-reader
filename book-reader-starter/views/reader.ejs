@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= book %> - <%= chapter %></title>
+</head>
+<body>
+  <a href="/dashboard">Back to Library</a> |
+  <a href="/logout">Logout</a>
+  <hr>
+  <div><%- content %></div>
+  <% if (nextChapter) { %>
+    <form method="GET" action="/read/<%= book %>/<%= nextChapter %>">
+      <button>Next Chapter</button>
+    </form>
+  <% } else { %>
+    <p>End of Book</p>
+  <% } %>
+</body>
+</html>
