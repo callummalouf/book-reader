@@ -7,27 +7,29 @@
     body {
       margin: 0;
       height: 100vh;
-      background-color: #f0f4f8;
+      background-color: #343541; /* ChatGPT dark background */
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: 'Segoe UI', sans-serif;
-      font-size: 40px; /* Default font size for desktop */
+      font-size: 40px;
+      color: #ffffff;
     }
 
     .login-box {
-      background: white;
+      background: #444654; /* Slightly lighter grey box */
       padding: 40px;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      width: 300px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 400px;
       text-align: center;
     }
 
     .login-box h2 {
       margin-bottom: 20px;
-      font-size: 24px;
-      color: #333;
+      font-size: 32px;
+      color: #ffffff;
     }
 
     .login-box input {
@@ -37,24 +39,31 @@
       border: 1px solid #ccc;
       border-radius: 6px;
       font-size: 16px;
+      background-color: white;
+      color: #000000;
+    }
+
+    .login-box input::placeholder {
+      color: #666;
     }
 
     .login-box button {
       padding: 12px 20px;
       font-size: 16px;
-      background-color: #007acc;
+      background-color: #007acc; /* Original blue */
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       width: 100%;
+      transition: background-color 0.3s ease;
     }
 
     .login-box button:hover {
       background-color: #005fa3;
     }
 
-    /* Mobile font adjustment */
+    /* Mobile styles */
     @media only screen and (max-width: 600px) {
       body {
         font-size: 60px;
