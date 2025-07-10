@@ -14,7 +14,19 @@
       font-size: 16px;
       box-shadow: 0 0 12px rgba(0,0,0,0.1);
       border-radius: 8px;
+      overflow-x: hidden;
     }
+
+    /* Reader font sizes */
+    .reader-size-14 { font-size: 14px !important; }
+    .reader-size-16 { font-size: 16px !important; }
+    .reader-size-20 { font-size: 20px !important; }
+    .reader-size-24 { font-size: 24px !important; }
+    .reader-size-34 { font-size: 34px !important; }
+    .reader-size-40 { font-size: 40px !important; }
+    .reader-size-45 { font-size: 45px !important; }
+    .reader-size-50 { font-size: 50px !important; }
+    .reader-size-55 { font-size: 55px !important; }
 
     .chapter-text, .chapter-text * {
       font-size: inherit !important;
@@ -55,9 +67,9 @@
       box-shadow: 0 0 12px rgba(0,0,0,0.2);
       z-index: 1000;
       max-width: 320px;
-      border-radius: 8px;
       max-height: 80vh;
       overflow-y: auto;
+      border-radius: 8px;
     }
 
     #settingsModal.show {
@@ -83,7 +95,7 @@
   <span id="settingsToggle">⚙️ Font Settings</span>
   <hr>
 
-  <div class="chapter-text"><%- content %></div>
+  <div class="chapter-text" id="chapterText"><%- content %></div>
 
   <div class="nav-buttons">
     <% if (prevChapter) { %>
@@ -124,6 +136,12 @@
   <script>
     const modal = document.getElementById('settingsModal');
     const toggle = document.getElementById('settingsToggle');
+    const chapterText = document.getElementById('chapterText');
+
+    function applyFontSize(size) {
+      chapterText.className = 'chapter-text'; // reset
+      chapterText.classList.add(`reader-size-${parseInt(size)}`);
+    }
 
     toggle.onclick = () => {
       document.getElementById('textSize').value = localStorage.getItem('textSize') || '16px';
@@ -137,18 +155,19 @@
     document.getElementById('saveSettings').onclick = () => {
       const size = document.getElementById('textSize').value;
       localStorage.setItem('textSize', size);
-      document.body.style.fontSize = size;
+      applyFontSize(size);
       modal.classList.remove('show');
     };
 
     document.addEventListener('DOMContentLoaded', () => {
       const color = localStorage.getItem('textColor');
       const bg = localStorage.getItem('bgColor');
-      const size = localStorage.getItem('textSize');
+      const size = localStorage.getItem('textSize') || '16px';
 
       if (color) document.body.style.color = color;
       if (bg) document.body.style.backgroundColor = bg;
-      if (size) document.body.style.fontSize = size;
+
+      applyFontSize(size);
     });
   </script>
 </body>
