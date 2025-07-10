@@ -15,6 +15,13 @@
       box-shadow: 0 0 12px rgba(0,0,0,0.1);
       border-radius: 8px;
     }
+
+    .chapter-text, .chapter-text * {
+      font-size: inherit !important;
+      line-height: inherit !important;
+      color: inherit !important;
+    }
+
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -49,6 +56,8 @@
       z-index: 1000;
       max-width: 320px;
       border-radius: 8px;
+      max-height: 80vh;
+      overflow-y: auto;
     }
 
     #settingsModal.show {
@@ -74,7 +83,7 @@
   <span id="settingsToggle">⚙️ Font Settings</span>
   <hr>
 
-  <div><%- content %></div>
+  <div class="chapter-text"><%- content %></div>
 
   <div class="nav-buttons">
     <% if (prevChapter) { %>
