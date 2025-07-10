@@ -1,7 +1,7 @@
 /* === Base Styles (Mobile First) === */
 html {
   box-sizing: border-box;
-  font-size: 62.5%; /* Makes 1rem = 10px */
+  font-size: 62.5%; /* 1rem = 10px */
 }
 *, *::before, *::after {
   box-sizing: inherit;
@@ -9,7 +9,7 @@ html {
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  font-size: 3rem; /* 30px base for mobile */
+  font-size: 3rem; /* 30px for mobile */
   padding: 1.5rem;
   line-height: 1.6;
   background-color: #f9f9f9;
@@ -17,7 +17,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Layout containers */
+/* Layout Containers */
 .login-box,
 .reader-container,
 .dashboard-container {
@@ -32,7 +32,7 @@ body {
 
 /* Headings */
 h2, h3 {
-  font-size: 4.4rem; /* 44px */
+  font-size: 4.4rem;
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -47,7 +47,6 @@ select {
   margin: 1.2rem 0;
   border: 1px solid #ccc;
   border-radius: 0.8rem;
-  box-sizing: border-box;
 }
 
 /* Buttons */
@@ -71,7 +70,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Nav buttons layout */
+/* Navigation Buttons */
 .nav-buttons {
   display: flex;
   flex-direction: column;
@@ -100,10 +99,39 @@ a:hover {
   text-align: center;
 }
 
+/* === Modal Fix (Mobile First) === */
+#settingsModal {
+  display: none;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e1e1e;
+  color: #ffffff;
+  padding: 2rem;
+  border: 1px solid #555;
+  box-shadow: 0 0 1.2rem rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 90%;
+  max-width: 32rem;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 1rem;
+}
+#settingsModal.show {
+  display: block;
+}
+#settingsModal button {
+  font-size: 2.8rem;
+  margin-top: 1.5rem;
+  padding: 1.2rem;
+  cursor: pointer;
+}
+
 /* === Larger Screens === */
 @media only screen and (min-width: 768px) {
   body {
-    font-size: 4rem; /* 40px for desktop */
+    font-size: 4rem;
     padding: 2rem;
   }
 
@@ -138,5 +166,10 @@ a:hover {
   .nav-buttons button {
     width: auto;
     min-width: 14rem;
+  }
+
+  #settingsModal {
+    font-size: 1.6rem;
+    width: 32rem;
   }
 }
