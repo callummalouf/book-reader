@@ -104,7 +104,7 @@
   <div id="reader" class="reader-size-16">
     <div class="chapter-text" id="chapterText">
       <% content.split(/\n\s*\n+/).forEach(paragraph => { %>
-        <p><%= paragraph.trim().replace(/\n/g, '<br>') %></p>
+        <p><%- paragraph.trim().replace(/\n/g, '<br>') %></p>
       <% }) %>
     </div>
   </div>
