@@ -11,28 +11,30 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #333;
       background-color: #f9f9f9;
-      font-size: 16px;
       box-shadow: 0 0 12px rgba(0,0,0,0.1);
       border-radius: 8px;
       overflow-x: hidden;
     }
 
-    /* Reader font sizes */
-    .reader-size-14 { font-size: 14px !important; }
-    .reader-size-16 { font-size: 16px !important; }
-    .reader-size-20 { font-size: 20px !important; }
-    .reader-size-24 { font-size: 24px !important; }
-    .reader-size-34 { font-size: 34px !important; }
-    .reader-size-40 { font-size: 40px !important; }
-    .reader-size-45 { font-size: 45px !important; }
-    .reader-size-50 { font-size: 50px !important; }
-    .reader-size-55 { font-size: 55px !important; }
-
-    .chapter-text, .chapter-text * {
+    /* Force font size inside chapter text */
+    .chapter-text {
+      font-size: 16px;
+    }
+    .chapter-text * {
       font-size: inherit !important;
       line-height: inherit !important;
       color: inherit !important;
     }
+
+    .reader-size-14 .chapter-text { font-size: 14px !important; }
+    .reader-size-16 .chapter-text { font-size: 16px !important; }
+    .reader-size-20 .chapter-text { font-size: 20px !important; }
+    .reader-size-24 .chapter-text { font-size: 24px !important; }
+    .reader-size-34 .chapter-text { font-size: 34px !important; }
+    .reader-size-40 .chapter-text { font-size: 40px !important; }
+    .reader-size-45 .chapter-text { font-size: 45px !important; }
+    .reader-size-50 .chapter-text { font-size: 50px !important; }
+    .reader-size-55 .chapter-text { font-size: 55px !important; }
 
     .nav-buttons {
       display: flex;
@@ -95,7 +97,9 @@
   <span id="settingsToggle">⚙️ Font Settings</span>
   <hr>
 
-  <div class="chapter-text" id="chapterText"><%- content %></div>
+  <div id="reader" class="reader-size-16">
+    <div class="chapter-text" id="chapterText"><%- content %></div>
+  </div>
 
   <div class="nav-buttons">
     <% if (prevChapter) { %>
@@ -122,7 +126,7 @@
         <option value="16px">Medium</option>
         <option value="20px">Large</option>
         <option value="24px">Extra Large</option>
-        <option value="34px">Extra Extra Extra Large</option>
+        <option value="34px">XXXL</option>
         <option value="40px">3.5xL</option>
         <option value="45px">4xL</option>
         <option value="50px">Are You Blind!</option>
@@ -136,11 +140,10 @@
   <script>
     const modal = document.getElementById('settingsModal');
     const toggle = document.getElementById('settingsToggle');
-    const chapterText = document.getElementById('chapterText');
+    const reader = document.getElementById('reader');
 
     function applyFontSize(size) {
-      chapterText.className = 'chapter-text'; // reset
-      chapterText.classList.add(`reader-size-${parseInt(size)}`);
+      reader.className = `reader-size-${parseInt(size)}`;
     }
 
     toggle.onclick = () => {
@@ -166,7 +169,6 @@
 
       if (color) document.body.style.color = color;
       if (bg) document.body.style.backgroundColor = bg;
-
       applyFontSize(size);
     });
   </script>
