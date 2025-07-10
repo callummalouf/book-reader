@@ -16,10 +16,14 @@
       overflow-x: hidden;
     }
 
-    /* Force font size inside chapter text */
     .chapter-text {
       font-size: 16px;
     }
+
+    .chapter-text p {
+      margin-bottom: 1.6em;
+    }
+
     .chapter-text * {
       font-size: inherit !important;
       line-height: inherit !important;
@@ -98,7 +102,11 @@
   <hr>
 
   <div id="reader" class="reader-size-16">
-    <div class="chapter-text" id="chapterText"><%- content %></div>
+    <div class="chapter-text" id="chapterText">
+      <% content.split(/\n\s*\n+/).forEach(paragraph => { %>
+        <p><%= paragraph.trim().replace(/\n/g, '<br>') %></p>
+      <% }) %>
+    </div>
   </div>
 
   <div class="nav-buttons">
