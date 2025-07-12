@@ -88,6 +88,23 @@ app.get('/read/:book/:chapter', (req, res) => {
     });
 });
 
+// ✅ NEW: Get chapter list for a book (used in dropdown)
+app.get('/chapters/:book', (req, res) => {
+    const book = req.params.book;
+    const bookDir = path.join(__dirname, 'books', book);
+
+    if (!fs.existsSync(bookDir)) {
+        return res.status(404).json({ error: 'Book not found' });
+    }
+
+    const chapters = fs.readdirSync(bookDir)
+        .filter(f => f.endsWith('.html'))
+        .map(f => f.replace('.html', ''))
+        .sort();
+
+    res.json(chapters);
+});
+
 // Logout
 app.get('/logout', (req, res) => {
     req.session.destroy();
