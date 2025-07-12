@@ -54,6 +54,7 @@ app.get('/dashboard', (req, res) => {
 // Read Chapter
 app.get('/read/:book/:chapter', (req, res) => {
     if (!req.session.loggedIn) return res.redirect('/');
+
     const { book, chapter } = req.params;
     const chapterPath = path.join(__dirname, 'books', book, `${chapter}.html`);
 
@@ -77,14 +78,26 @@ app.get('/read/:book/:chapter', (req, res) => {
     progress[USERNAME][book] = chapter;
     saveProgress(progress);
 
-    const chapterContent = fs.readFileSync(chapterPath, 'utf8');
-    res.render('reader', {
-        book,
-        chapter,
-        content: chapterContent,
-        nextChapter,
-        prevChapter
-    });
+    let chapterContent;
+    try {
+        chapterContent = fs.readFileSync(chapterPath, 'utf8');
+    } catch (err) {
+        console.error('Error reading chapter file:', err);
+        return res.status(500).send('Error reading chapter content.');
+    }
+
+    try {
+        res.render('reader', {
+            book,
+            chapter,
+            content: chapterContent,
+            nextChapter,
+            prevChapter
+        });
+    } catch (err) {
+        console.error('Render error:', err);
+        res.status(500).send('Internal Server Error: ' + err.message);
+    }
 });
 
 // Logout
