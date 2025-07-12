@@ -60,13 +60,15 @@ app.get('/read/:book/:chapter', (req, res) => {
 
     if (!fs.existsSync(chapterPath)) return res.send('Chapter not found');
 
-    // 🛠️ Fixed: sort chapters numerically
+    // ✅ FIXED: Correctly sort files like chapter1.html, chapter2.html, chapter10.html
     const chapters = fs.readdirSync(path.join(__dirname, 'books', book))
         .filter(f => f.endsWith('.html'))
         .sort((a, b) => {
-            const numA = parseInt(a.replace('.html', ''));
-            const numB = parseInt(b.replace('.html', ''));
-            return numA - numB;
+            const getNum = filename => {
+                const match = filename.match(/\d+/);
+                return match ? parseInt(match[0]) : 0;
+            };
+            return getNum(a) - getNum(b);
         });
 
     const currentIndex = chapters.indexOf(`${chapter}.html`);
