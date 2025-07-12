@@ -93,31 +93,9 @@
     #settingsToggle:hover {
       text-decoration: underline;
     }
-
-    .chapter-dropdown {
-      margin-bottom: 1rem;
-    }
-
-    .chapter-dropdown select {
-      font-size: 1rem;
-      padding: 8px;
-      border-radius: 5px;
-    }
   </style>
 </head>
 <body>
-  <!-- Chapter Dropdown -->
-  <div class="chapter-dropdown">
-    <label for="chapterSelect"><strong>Jump to Chapter:</strong></label>
-    <select id="chapterSelect">
-      <% chapters.forEach(ch => { %>
-        <option value="/read/<%= book %>/<%= ch %>" <%= ch === chapter ? 'selected' : '' %>>
-          <%= ch %>
-        </option>
-      <% }) %>
-    </select>
-  </div>
-
   <a href="/dashboard">Back to Library</a> |
   <a href="/logout">Logout</a>
   <span id="settingsToggle">⚙️ Font Settings</span>
@@ -171,12 +149,6 @@
     const modal = document.getElementById('settingsModal');
     const toggle = document.getElementById('settingsToggle');
     const reader = document.getElementById('reader');
-    const chapterSelect = document.getElementById('chapterSelect');
-
-    // Handle dropdown chapter change
-    chapterSelect.addEventListener('change', (e) => {
-      window.location.href = e.target.value;
-    });
 
     function applyFontSize(size) {
       reader.className = `reader-size-${parseInt(size)}`;
