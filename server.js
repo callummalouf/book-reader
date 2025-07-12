@@ -55,7 +55,7 @@ app.get('/dashboard', (req, res) => {
 app.get('/read/:book/:chapter', (req, res) => {
     if (!req.session.loggedIn) return res.redirect('/');
     const { book, chapter } = req.params;
-    const chapterPath = path.join(__dirname, 'books', book, `${chapter}.html`);
+    const chapterPath = path.join(__dirname, 'books', book, ${chapter}.html);
 
     if (!fs.existsSync(chapterPath)) return res.send('Chapter not found');
 
@@ -63,7 +63,7 @@ app.get('/read/:book/:chapter', (req, res) => {
         .filter(f => f.endsWith('.html'))
         .sort();
 
-    const currentIndex = chapters.indexOf(`${chapter}.html`);
+    const currentIndex = chapters.indexOf(${chapter}.html);
     const nextChapter = chapters[currentIndex + 1]
         ? chapters[currentIndex + 1].replace('.html', '')
         : null;
@@ -88,23 +88,6 @@ app.get('/read/:book/:chapter', (req, res) => {
     });
 });
 
-// ✅ NEW: Get chapter list for a book (used in dropdown)
-app.get('/chapters/:book', (req, res) => {
-    const book = req.params.book;
-    const bookDir = path.join(__dirname, 'books', book);
-
-    if (!fs.existsSync(bookDir)) {
-        return res.status(404).json({ error: 'Book not found' });
-    }
-
-    const chapters = fs.readdirSync(bookDir)
-        .filter(f => f.endsWith('.html'))
-        .map(f => f.replace('.html', ''))
-        .sort();
-
-    res.json(chapters);
-});
-
 // Logout
 app.get('/logout', (req, res) => {
     req.session.destroy();
@@ -113,4 +96,4 @@ app.get('/logout', (req, res) => {
 
 // Start Server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`App running on port ${PORT}`));
+app.listen(PORT, () => console.log(App running on port ${PORT}));
