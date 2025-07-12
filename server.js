@@ -60,9 +60,14 @@ app.get('/read/:book/:chapter', (req, res) => {
 
     if (!fs.existsSync(chapterPath)) return res.send('Chapter not found');
 
+    // 🛠️ Fixed: sort chapters numerically
     const chapters = fs.readdirSync(path.join(__dirname, 'books', book))
         .filter(f => f.endsWith('.html'))
-        .sort();
+        .sort((a, b) => {
+            const numA = parseInt(a.replace('.html', ''));
+            const numB = parseInt(b.replace('.html', ''));
+            return numA - numB;
+        });
 
     const currentIndex = chapters.indexOf(`${chapter}.html`);
     const nextChapter = chapters[currentIndex + 1]
