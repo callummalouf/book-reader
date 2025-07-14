@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title><%= book %> - <%= chapter %></title>
@@ -142,27 +142,7 @@
         <option value="55px">(-_-)</option>
       </select>
     </label><br><br>
-
-    <label>Jump to Chapter:
-      <select id="chapterSelect">
-        <% 
-          const allChapters = require('fs').readdirSync(books/${book})
-            .filter(f => f.endsWith('.html'))
-            .sort((a, b) => {
-              const numA = parseInt(a.match(/\d+/));
-              const numB = parseInt(b.match(/\d+/));
-              return numA - numB;
-            });
-          allChapters.forEach(file => {
-            const name = file.replace('.html', '');
-        %>
-          <option value="<%= name %>" <%= chapter === name ? 'selected' : '' %>><%= name %></option>
-        <% }) %>
-      </select>
-    </label><br><br>
-
     <button id="saveSettings">Save</button>
-    <button id="goToChapter">Go</button>
     <button id="closeSettings">Close</button>
   </div>
 
@@ -191,13 +171,13 @@
       modal.classList.remove('show');
     };
 
-    document.getElementById('goToChapter').onclick = () => {
-      const selected = document.getElementById('chapterSelect').value;
-      window.location.href = /read/<%= book %>/ + selected;
-    };
-
     document.addEventListener('DOMContentLoaded', () => {
+      const color = localStorage.getItem('textColor');
+      const bg = localStorage.getItem('bgColor');
       const size = localStorage.getItem('textSize') || '16px';
+
+      if (color) document.body.style.color = color;
+      if (bg) document.body.style.backgroundColor = bg;
       applyFontSize(size);
     });
   </script>
