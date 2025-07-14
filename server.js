@@ -1,4 +1,4 @@
-const express = require('express');
+ const express = require('express');
 const session = require('express-session');
 const fs = require('fs');
 const path = require('path');
@@ -116,5 +116,3 @@ app.get('/logout', (req, res) => {
 // Start Server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(App running on port ${PORT}));
-
-
