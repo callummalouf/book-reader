@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <title><%= book %> - <%= chapter %></title>
@@ -146,7 +146,7 @@
     <label>Jump to Chapter:
       <select id="chapterSelect">
         <% 
-          const allChapters = require('fs').readdirSync(`books/${book}`)
+          const allChapters = require('fs').readdirSync(books/${book})
             .filter(f => f.endsWith('.html'))
             .sort((a, b) => {
               const numA = parseInt(a.match(/\d+/));
@@ -172,7 +172,7 @@
     const reader = document.getElementById('reader');
 
     function applyFontSize(size) {
-      reader.className = `reader-size-${parseInt(size)}`;
+      reader.className = reader-size-${parseInt(size)};
     }
 
     toggle.onclick = () => {
@@ -193,7 +193,7 @@
 
     document.getElementById('goToChapter').onclick = () => {
       const selected = document.getElementById('chapterSelect').value;
-      window.location.href = `/read/<%= book %>/` + selected;
+      window.location.href = /read/<%= book %>/ + selected;
     };
 
     document.addEventListener('DOMContentLoaded', () => {
