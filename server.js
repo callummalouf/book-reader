@@ -60,8 +60,8 @@ app.get('/read/:book/:chapter', (req, res) => {
 
     if (!fs.existsSync(chapterPath)) return res.send('Chapter not found');
 
-    // ✅ FIXED: Correctly sort files like chapter1.html, chapter2.html, chapter10.html
-    const chapters = fs.readdirSync(path.join(__dirname, 'books', book))
+    const chapterDir = path.join(__dirname, 'books', book);
+    const chapters = fs.readdirSync(chapterDir)
         .filter(f => f.endsWith('.html'))
         .sort((a, b) => {
             const getNum = filename => {
@@ -70,6 +70,8 @@ app.get('/read/:book/:chapter', (req, res) => {
             };
             return getNum(a) - getNum(b);
         });
+
+    const allChapters = chapters.map(file => file.replace('.html', '')); // ✅ Added
 
     const currentIndex = chapters.indexOf(`${chapter}.html`);
     const nextChapter = chapters[currentIndex + 1]
@@ -99,7 +101,8 @@ app.get('/read/:book/:chapter', (req, res) => {
             chapter,
             content: chapterContent,
             nextChapter,
-            prevChapter
+            prevChapter,
+            allChapters // ✅ Pass to reader.ejs
         });
     } catch (err) {
         console.error('Render error:', err);
