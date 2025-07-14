@@ -8,10 +8,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
+// Updated session config with sameSite and maxAge for better mobile compatibility
 app.use(session({
     secret: 'your_secret_key',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,  // changed from true to false for better control
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000, // 1 day
+        sameSite: 'lax',             // good balance for most browsers incl. Safari
+        secure: false                // set to true if your site uses HTTPS (render.com usually does)
+    }
 }));
 
 const USERNAME = 'cal4';
@@ -38,6 +44,7 @@ app.post('/login', (req, res) => {
     const { username, password } = req.body;
     if (username === USERNAME && password === PASSWORD) {
         req.session.loggedIn = true;
+        req.session.username = username;  // Save username in session for progress tracking
         return res.redirect('/dashboard');
     }
     res.send('Invalid login. <a href="/">Try again</a>.');
@@ -47,7 +54,7 @@ app.post('/login', (req, res) => {
 app.get('/dashboard', (req, res) => {
     if (!req.session.loggedIn) return res.redirect('/');
     const books = fs.readdirSync('./books');
-    const progress = getProgress()[USERNAME] || {};
+    const progress = getProgress()[req.session.username] || {};  // Use session username here
     res.render('dashboard', { books, progress });
 });
 
@@ -60,7 +67,6 @@ app.get('/read/:book/:chapter', (req, res) => {
 
     if (!fs.existsSync(chapterPath)) return res.send('Chapter not found');
 
-    // Correctly sort chapter files like chapter1.html, chapter2.html, chapter10.html
     const chapters = fs.readdirSync(path.join(__dirname, 'books', book))
         .filter(f => f.endsWith('.html'))
         .sort((a, b) => {
@@ -80,9 +86,11 @@ app.get('/read/:book/:chapter', (req, res) => {
         ? chapters[currentIndex - 1].replace('.html', '')
         : null;
 
+    // Save progress using session username instead of hardcoded USERNAME
     const progress = getProgress();
-    progress[USERNAME] = progress[USERNAME] || {};
-    progress[USERNAME][book] = chapter;
+    const username = req.session.username || USERNAME;
+    progress[username] = progress[username] || {};
+    progress[username][book] = chapter;
     saveProgress(progress);
 
     let chapterContent;
@@ -110,7 +118,7 @@ app.get('/read/:book/:chapter', (req, res) => {
 // Logout
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
-      res.redirect('/');
+        res.redirect('/');
     });
 });
 
