@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #343541; /* ChatGPT dark background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 40px;
+      color: #ffffff;
+    }
+
+    .login-box {
+      background: #444654; /* Slightly lighter grey box */
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      font-size: 32px;
+      color: #ffffff;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      background-color: white;
+      color: #000000;
+    }
+
+    .login-box input::placeholder {
+      color: #666;
+    }
+
+    .login-box button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #007acc; /* Original blue */
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-box button:hover {
+      background-color: #005fa3;
+    }
+
+    /* Mobile styles */
+    @media only screen and (max-width: 600px) {
+      body {
+        font-size: 60px;
+      }
+
+      .login-box h2 {
+        font-size: 40px;
+      }
+
+      .login-box input,
+      .login-box button {
+        font-size: 32px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login</h2>
+    <form method="POST" action="/login">
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= book %> - <%= chapter %></title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <style>
+    body {
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      background-color: #f9f9f9;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow-x: hidden;
+    }
+
+    .chapter-text {
+      font-size: 16px;
+    }
+
+    .chapter-text p {
+      margin-bottom: 1.6em;
+    }
+
+    .chapter-text * {
+      font-size: inherit !important;
+      line-height: inherit !important;
+      color: inherit !important;
+    }
+
+    .reader-size-14 .chapter-text { font-size: 14px !important; }
+    .reader-size-16 .chapter-text { font-size: 16px !important; }
+    .reader-size-20 .chapter-text { font-size: 20px !important; }
+    .reader-size-24 .chapter-text { font-size: 24px !important; }
+    .reader-size-34 .chapter-text { font-size: 34px !important; }
+    .reader-size-40 .chapter-text { font-size: 40px !important; }
+    .reader-size-45 .chapter-text { font-size: 45px !important; }
+    .reader-size-50 .chapter-text { font-size: 50px !important; }
+    .reader-size-55 .chapter-text { font-size: 55px !important; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+    .nav-buttons form {
+      display: inline;
+    }
+    .nav-buttons button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .nav-buttons button:hover {
+      background-color: #005fa3;
+    }
+
+    #settingsModal {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      max-width: 320px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border-radius: 8px;
+    }
+
+    #settingsModal.show {
+      display: block;
+    }
+
+    #settingsToggle {
+      float: right;
+      margin-bottom: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      color: #007acc;
+    }
+
+    #settingsToggle:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <a href="/dashboard">Back to Library</a> |
+  <a href="/logout">Logout</a>
+  <span id="settingsToggle">⚙️ Font Settings</span>
+  <hr>
+
+  <div id="reader" class="reader-size-16">
+    <div class="chapter-text" id="chapterText">
+      <% content.split(/\n\s*\n+/).forEach(paragraph => { %>
+        <p><%- paragraph.trim().replace(/\n/g, '<br>') %></p>
+      <% }) %>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <% if (prevChapter) { %>
+      <form method="GET" action="/read/<%= book %>/<%= prevChapter %>">
+        <button>&larr; Previous Chapter</button>
+      </form>
+    <% } else { %>
+      <div></div>
+    <% } %>
+
+    <% if (nextChapter) { %>
+      <form method="GET" action="/read/<%= book %>/<%= nextChapter %>">
+        <button>Next Chapter &rarr;</button>
+      </form>
+    <% } %>
+  </div>
+
+  <!-- Font Settings Modal -->
+  <div id="settingsModal">
+    <h3>Font Settings</h3>
+    <label>Text Size:
+      <select id="textSize">
+        <option value="14px">Small</option>
+        <option value="16px">Medium</option>
+        <option value="20px">Large</option>
+        <option value="24px">Extra Large</option>
+        <option value="34px">XXXL</option>
+        <option value="40px">3.5xL</option>
+        <option value="45px">4xL</option>
+        <option value="50px">Are You Blind!</option>
+        <option value="55px">(-_-)</option>
+      </select>
+    </label><br><br>
+    <button id="saveSettings">Save</button>
+    <button id="closeSettings">Close</button>
+  </div>
+
+  <script>
+    const modal = document.getElementById('settingsModal');
+    const toggle = document.getElementById('settingsToggle');
+    const reader = document.getElementById('reader');
+
+    function applyFontSize(size) {
+      reader.className = `reader-size-${parseInt(size)}`;
+    }
+
+    toggle.onclick = () => {
+      document.getElementById('textSize').value = localStorage.getItem('textSize') || '16px';
+      modal.classList.add('show');
+    };
+
+    document.getElementById('closeSettings').onclick = () => {
+      modal.classList.remove('show');
+    };
+
+    document.getElementById('saveSettings').onclick = () => {
+      const size = document.getElementById('textSize').value;
+      localStorage.setItem('textSize', size);
+      applyFontSize(size);
+      modal.classList.remove('show');
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const color = localStorage.getItem('textColor');
+      const bg = localStorage.getItem('bgColor');
+      const size = localStorage.getItem('textSize') || '16px';
+
+      if (color) document.body.style.color = color;
+      if (bg) document.body.style.backgroundColor = bg;
+      applyFontSize(size);
+    });
+  </script>
+</body>
+</html>
