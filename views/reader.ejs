@@ -142,6 +142,18 @@
         <option value="55px">(-_-)</option>
       </select>
     </label><br><br>
+
+    <!-- NEW: Chapter Jump Dropdown -->
+    <label>Jump to Chapter:
+      <select id="chapterSelect">
+        <% allChapters.forEach(chap => { %>
+          <option value="<%= chap %>" <%= chap === chapter ? 'selected' : '' %>><%= chap %></option>
+        <% }) %>
+      </select>
+    </label><br><br>
+    <button id="goToChapter">Go</button>
+    <!-- END NEW -->
+
     <button id="saveSettings">Save</button>
     <button id="closeSettings">Close</button>
   </div>
@@ -169,6 +181,12 @@
       localStorage.setItem('textSize', size);
       applyFontSize(size);
       modal.classList.remove('show');
+    };
+
+    // NEW: Chapter jump button handler
+    document.getElementById('goToChapter').onclick = () => {
+      const selectedChapter = document.getElementById('chapterSelect').value;
+      window.location.href = `/read/<%= book %>/` + selectedChapter;
     };
 
     document.addEventListener('DOMContentLoaded', () => {
