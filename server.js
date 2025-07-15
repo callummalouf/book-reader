@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
 const fs = require('fs');
 const path = require('path');
 
@@ -12,10 +13,13 @@ app.use(session({
   secret: 'your_secret_key',
   resave: false,
   saveUninitialized: false,  // prevent empty sessions
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired sessions every 24h
+  }),
   cookie: {
     httpOnly: true,
     sameSite: 'lax',          // mobile/iPhone compatibility
-    secure: false,            // only use true if using HTTPS
+    secure: false,            // set to true if using HTTPS
     maxAge: 24 * 60 * 60 * 1000 // 1 day
   }
 }));
